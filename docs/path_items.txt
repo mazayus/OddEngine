@@ -1,0 +1,11 @@
+0   - fg layer floor
+1   - fg layer left wall
+2   - fg layer right wall
+3   - fg layer ceiling
+4   - bg layer floor
+5   - bg layer left wall
+6   - bg layer right wall
+7   - bg layer ceiling
+8   - trajectory (used by bats, flying bombs, etc.)
+9   - unknown
+10  - blocks bullets from bg layer

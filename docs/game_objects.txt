@@ -1,0 +1,237 @@
+struct GameObject
+{
+    uint16 end_marker;      // if 4 then this is the last object in cam
+
+    uint16 size;            // size of this struct (min=24, max=88)
+    uint32 type;            // type of this object (min=0, max=115, not all values are used)
+
+    uint32 padding;         // always 0
+
+    uint16 x0, y0;          // equal to x1, y1
+    uint16 x1, y1;          // upper left corner
+    uint16 x2, y2;          // lower right corner
+
+    uint8 data[size-24];    // type-specific data
+};
+
+0 - checkpoint
+1 - path transition
+2 - section info
+3 - climbable ledge
+4 - non-climbable ledge
+5 - fall off screen?
+6 - door
+7 - shadow 1
+8 - lift platform
+9 - unused
+10 - unused
+11 - well
+
+-----------------------------------------------------------------------------
+12 - birds
+uint16 num_birds;
+uint16 cluster; // 0 - birds are spread out, 1 - birds are clustered together
+uint16 layer; // 0 - foreground, 1 - background
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+13 - bag
+uint16 unknown; // 0 or 1
+uint16 unknown;
+uint16 unknown;
+uint16 layer; // 0 - foreground, 1 - background
+uint16 num_stones;
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+
+14 - ??? (6xF2)
+15 - meat chunk spawner
+16 - unused
+17 - unused
+
+-----------------------------------------------------------------------------
+18 - pullring
+uint16 id; // used to associate this pullring with an object
+uint16 unknown; // 0 or 4
+uint16 rope_length;
+uint16 layer; // 0 - foreground, 1 - background
+uint16 unknown; // 0, 1 or 3
+uint16 unknown; // 0, 1 or 3
+uint16 unknown; // 0 or 1
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+19 - background animation
+uint32 anim_id;
+uint16 unknown; // always 0
+uint16 unknown; // 0 or 1
+-----------------------------------------------------------------------------
+
+20 - ??? (1xF1, 1xD1)
+21 - unused
+
+-----------------------------------------------------------------------------
+22 - time bomb
+uint32 unknown; // always 0
+uint16 layer; // 0 - foreground, 1 - background
+uint16 timer;
+uint16 unknown; // 2, 4, or 6
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+
+23 - unused
+24 - slig
+25 - slog
+
+-----------------------------------------------------------------------------
+26 - lever
+uint16 id; // used to associate this lever with an object
+uint16 type; // 0 - can be triggered only once, 1 - ???, 2 - can be triggered multiple times, 3 - ???
+uint16 layer; // 0 - foreground, 1 - background
+uint16 sound_on; // sound to play when the lever is enabled
+uint16 sound_off; // sound to play when the lever is disabled
+uint16 sound_source; // 0 - both channels, 1 - right channel, 2 - left channel
+-----------------------------------------------------------------------------
+
+27 - ??? (1xF1, 1xD1)
+28 - path transition destination
+
+-----------------------------------------------------------------------------
+29 - anti-chant thingy 1
+uint16 layer; // 0 - foreground, 1 - background
+uint16 unknown; // 0, 2 or 63
+-----------------------------------------------------------------------------
+
+30 - unused
+31 - unused
+32 - ??? (1xF1)
+33 - unused
+34 - ??? (1xF2)
+35 - lift wheel
+36 - ??? (1xF1, 1xF2)
+37 - ??? (1xR1, 1xR2)
+38 - ??? (1xF1, 1xD1)
+39 - unused
+40 - ???
+41 - whistling mud with a slingshot
+42 - ??? (1xF1)
+43 - wasp nest
+44 - unused
+45 - well
+46 - mine
+47 - bomb
+48 - ???
+49 - bat
+50 - ???
+51 - ??? (1xR2)
+52 - bird portal
+53 - ???
+54 - bell song
+
+-----------------------------------------------------------------------------
+55 - trapdoor
+uint16 id;  // used to associate an object with a lever or a pullring
+uint16 state; // 0 - open, 1 - closed
+uint16 autoclose; // 0 - off, 1 - on
+uint16 layer; // 0 - foreground, 1 - background
+uint16 unknown; // 0, 1 or 4
+uint16 orientation; // 0 - right, 1 - left
+uint16 visual_x_offset; // does not affect collision detection
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+
+56 - ??? (2xF2)
+57 - slig patrol area (left edge)?
+58 - shadow 2
+59 - ??? (1xF2)
+60 - ??? (4xF2)
+
+-----------------------------------------------------------------------------
+61 - anti-chant thingy 2
+uint16 layer; // 0 - foreground, 1 - background
+uint16 unknown;
+uint16 unknown; // 0 or 96
+uint16 unknown; // 0, 4, or 6
+-----------------------------------------------------------------------------
+
+62 - motion detector beam
+63 - unused
+64 - unused
+65 - unused
+66 - slig custom behavior?
+
+-----------------------------------------------------------------------------
+67 - electric wall
+uint16 layer; // 0 - foreground, 1 - background
+uint16 id; // used to associate an object with a lever or a pullring
+uint16 state; // 0 - off, 1 - on
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+
+68 - ???
+69 - bells
+70 - unused
+71 - ???
+72 - scrab
+73 - flint lock
+74 - ???
+75 - ???
+76 - slig patrol area (right edge)?
+77 - ???
+78 - unused
+79 - ???
+80 - unused
+81 - ???
+82 - mudokon
+83 - ???
+84 - ???
+85 - unused
+86 - ???
+87 - ???
+88 - meat saw
+89 - ??? (1xR1)
+90 - ??? (5xS1)
+91 - unused
+
+-----------------------------------------------------------------------------
+92 - hint
+uint16 message_index;
+uint16 padding; // always 0
+-----------------------------------------------------------------------------
+
+93 - ???
+94 - ???
+95 - ??? (3xR2)
+96 - unused
+
+-----------------------------------------------------------------------------
+97 - boom machine
+uint16 layer; // 0 - foreground, 1 - background
+uint16 orientation; // 0 - right, 1 - left
+uint16 unknown; // 0 or 6
+uint16 num_grenades;
+-----------------------------------------------------------------------------
+98 - lcd
+uint16 green_message_index;
+uint16 first_red_message_index;
+uint16 last_red_message_index;
+uint16 padding;
+-----------------------------------------------------------------------------
+
+99 - ???
+100 - directory
+101 - ??? (1xC1)
+102 - ???
+
+-----------------------------------------------------------------------------
+103 - statistics
+-----------------------------------------------------------------------------
+
+104 - unused
+105 - secret info?
+
+-----------------------------------------------------------------------------
+106 - light
+uint16 type; // 0, 1, 2, 3, 4 or 5
+uint16 scale;
+uint16 unknown;
+uint16 unknown; // 0 or 1
+-----------------------------------------------------------------------------
